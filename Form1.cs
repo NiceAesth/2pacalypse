@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Media;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 
@@ -6,6 +7,8 @@ namespace _2pacalypse
 {
     public partial class Form1 : Form
     {
+        private SoundPlayer _soundPlayer;
+
         public Form1()
         {
             InitializeComponent();
@@ -37,6 +40,11 @@ namespace _2pacalypse
             bmp = bmpImage.Clone(new Rectangle(label6.Location.X + Right, label6.Location.Y + titleHeight, label6.Width, label6.Height), bmpImage.PixelFormat);
             label6.BackgroundImage = bmp;
             label6.Visible = true;
+
+            System.IO.Stream _2pacstream = Properties.Resources.keygen;
+
+            _soundPlayer = new SoundPlayer(_2pacstream);
+            _soundPlayer.PlayLooping();
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -86,6 +94,21 @@ namespace _2pacalypse
                         });
                 }
             });
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // pause homie
+            _soundPlayer.Stop();
+            button3.Visible = false;
+            button2.Visible = true;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            _soundPlayer.PlayLooping();
+            button2.Visible = false;
+            button3.Visible = true;
         }
     }
 }
